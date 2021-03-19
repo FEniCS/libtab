@@ -34,6 +34,11 @@ def test_interpolation_matrix(cell_name, order, element_name):
 
     coeffs = np.zeros((i_m.shape[0], i_m.shape[0]))
     for i in range(i_m.shape[0]):
+        # The data in tabulate is stored:
+        #     tabulate[point, ndofs * component + dof]
+        # so i::i_m.shape[0] gets the components for dof i.
+        # Hence overall tabulated[:, i::i_m.shape[0]] gets dof i evaluated at every point.
+        # This is then transposed and flattened into a 1D array that can be multiplied by the interpolation matrix
         coeffs[i, :] = i_m @ tabulated[:, i::i_m.shape[0]].T.reshape(i_m.shape[1])
 
     assert np.allclose(coeffs, np.identity(coeffs.shape[0]))
