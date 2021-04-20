@@ -11,6 +11,8 @@ namespace basix
 /// Create Regge element
 /// @param celltype
 /// @param degree
-FiniteElement create_regge(cell::type celltype, int degree);
+/// @param variant
+FiniteElement create_regge(cell::type celltype, int degree,
+                           element::variant variant);
 
 } // namespace basix
